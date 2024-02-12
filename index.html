@@ -1,0 +1,41 @@
+
+بالطبع، إليك مثالًا آخر باستخدام تقنية JavaScript لفتح تطبيق ماسنجر ومشاركة رسالة محددة:
+
+html
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Share on Messenger</title>
+</head>
+<body>
+
+<button onclick="shareOnMessenger()">مشاركة على ماسنجر</button>
+<a href="fb-messenger://share/?text=Check%20out%20this%20cool%20website:%20https://example.com">Share on Messenger</a>
+<script>
+function shareOnMessenger() {
+    var message = encodeURIComponent('مرحبا بالجميع');
+    var messengerUrl = 'fb-messenger://share/?link=&app_id=123456789&text=' + message;
+    
+    // Check if Messenger app is installed
+    fetch(messengerUrl, { method: 'HEAD' })
+        .then(response => {
+            if (response.ok) {
+                // Open Messenger app
+                window.location.href = messengerUrl;
+            } else {
+                // Messenger app is not installed or unavailable
+                alert('يبدو أن تطبيق ماسنجر غير متوفر على جهازك.');
+            }
+        })
+        .catch(error => {
+            console.error('Error checking Messenger availability:', error);
+            alert('حدث خطأ أثناء التحقق من توفر تطبيق ماسنجر.');
+        });
+}
+</script>
+
+</body>
+</html>
